@@ -326,7 +326,7 @@ impl<'a, 'ctx, 'env> Env<'a, 'ctx, 'env> {
         number_of_bytes: IntValue<'ctx>,
         alignment: u32,
     ) -> PointerValue<'ctx> {
-        let function = self.module.get_function("roc_alloc").unwrap();
+        let function = self.module.get_function("utils.roc_alloc").unwrap();
         let alignment = self.alignment_const(alignment);
         let call = self.builder.build_call(
             function,
@@ -344,7 +344,7 @@ impl<'a, 'ctx, 'env> Env<'a, 'ctx, 'env> {
     }
 
     pub fn call_dealloc(&self, ptr: PointerValue<'ctx>, alignment: u32) -> InstructionValue<'ctx> {
-        let function = self.module.get_function("roc_dealloc").unwrap();
+        let function = self.module.get_function("utils.roc_dealloc").unwrap();
         let alignment = self.alignment_const(alignment);
         let call =
             self.builder
@@ -380,7 +380,7 @@ impl<'a, 'ctx, 'env> Env<'a, 'ctx, 'env> {
     }
 
     pub fn call_panic(&self, message: PointerValue<'ctx>, tag_id: PanicTagId) {
-        let function = self.module.get_function("roc_panic").unwrap();
+        let function = self.module.get_function("utils.roc_panic").unwrap();
         let tag_id = self
             .context
             .i32_type()
